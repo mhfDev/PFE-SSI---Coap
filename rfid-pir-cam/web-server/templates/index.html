@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Freelancer - Start Bootstrap Theme</title>
+
+  <!-- Custom fonts for this theme -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Theme CSS -->
+  <link href="{{ url_for('static', filename='css/freelancer.css') }}" rel="stylesheet">
+  <style>
+      .content{
+        background-color: rgba(0, 0, 0, 0.2);
+        width: 100%;
+      }	
+  
+      .data{
+        width: 450px;
+        border: 2px solid gray;
+        border-radius: 10px;
+        padding: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 25px;
+        justify-content: center;
+      }
+  
+      .data ul{
+        padding: 0;
+        line-height: 2;
+      }
+  
+      .list-elmt{
+        display: inline-block;
+        width: 150px;
+      }
+  
+      .led-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+      }
+  
+      .led-box {
+        height: 30px;
+        width: 10%;
+        margin: 10px 0;
+        float: left;
+      }
+  
+      .led-blue-active {
+        margin: 0 auto;
+        width: 24px;
+        height: 24px;
+        background-color: #00ffe7;
+        border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.2) 0 0px 7px 0px, inset #1b3063 0 -1px 9px, #0069ff 0 1px 15px;
+      }
+  
+      .led-blue-inactive {
+        margin: 0 auto;
+        width: 24px;
+        height: 24px;
+        background-color: #000c61;
+        border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 -1px 7px 0px, inset #131844 0 -1px 9px;
+      }
+  
+      .led-green-active {
+        margin: 0 auto;
+        width: 24px;
+        height: 24px;
+        background-color: #ABFF00;
+        border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.2) 0 0px 7px 0px, inset #34460f 0 -1px 9px, #6ac500 0 1px 15px;
+      }
+  
+      .led-green-inactive {
+        margin: 0 auto;
+        width: 24px;
+        height: 24px;
+        background-color: rgb(67, 100, 0);
+        border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 0px 7px 0px, inset #34460f 0 -1px 9px;
+      }
+  
+      .led-orange-active {
+        margin: 0 auto;
+        width: 24px;
+        height: 24px;
+        background-color: rgb(255, 225, 56);
+        border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.2) 0 0px 7px 0px, inset rgb(145, 87, 0) 0 -1px 9px, rgb(195, 165, 0) 0 1px 15px;
+      }
+  
+      .led-orange-inactive {
+        margin: 0 auto;
+        width: 24px;
+        height: 24px;
+        background-color: rgb(121, 88, 0);
+        border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 0px 7px 0px, inset rgb(145, 87, 0) 0 -1px 9px;
+      }
+
+      .lds-dual-ring {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+      }
+      .lds-dual-ring:after {
+        content: " ";
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border-radius: 50%;
+        border: 6px solid #fff;
+        border-color: #fff transparent #fff transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+      }
+      @keyframes lds-dual-ring {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .lds-facebook {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+      }
+      .lds-facebook div {
+        display: inline-block;
+        position: absolute;
+        left: 8px;
+        width: 16px;
+        background: #fff;
+        animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+      }
+      .lds-facebook div:nth-child(1) {
+        left: 8px;
+        animation-delay: -0.24s;
+      }
+      .lds-facebook div:nth-child(2) {
+        left: 32px;
+        animation-delay: -0.12s;
+      }
+      .lds-facebook div:nth-child(3) {
+        left: 56px;
+        animation-delay: 0;
+      }
+      @keyframes lds-facebook {
+        0% {
+          top: 8px;
+          height: 64px;
+        }
+        50%, 100% {
+          top: 24px;
+          height: 32px;
+        }
+      }
+
+      .user {
+        display: inline-block;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+      }
+
+  </style>
+</head>
+
+<body id="page-top">
+
+  <!-- Masthead -->
+  <header class="masthead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+
+      <!-- Masthead Avatar Image -->
+      <!-- <img class="masthead-avatar mb-5" src="{{ url_for('static', filename='img/avataaars.svg') }}" alt=""> -->
+
+      <!-- Masthead Heading -->
+      <h1 class="masthead-heading mb-5">Start Identification</h1>
+
+      <div class="user" id="profile"></div>
+
+      <!-- Icon Divider -->
+      <div class="divider-custom divider-light">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-line"></div>
+      </div>
+
+      <!-- Student Data -->
+      <div class="data">
+          <div class="lds-dual-ring" id="loading-data"></div>
+          <ul style="list-style-type: none; text-align: left; font-weight: 600; display: none;width: 100%;" id="student-data">
+              <li style="display: none;"><label class="list-elmt">Lastname :</label> <span id="nom"></span></li>
+              <li style="display: none;"><label class="list-elmt">Firstname :</label> <span id="prenom"></span></li>
+              <li><label class="list-elmt">UID :</label> <span id="uid"></span></li> 
+              <li><label class="list-elmt">Status :</label> <span id="status"></span></li>
+          </ul>
+          <div id="cam-loading"><div></div><div></div><div></div></div>
+      </div>
+    </div>
+
+    <!-- Led Lights -->
+    <div class="led-container">
+      <div class="led-box">
+        <div class="led-blue-inactive" id="pir"></div>
+        <h5>PIR</h5>  
+      </div>
+      <div class="led-box">
+        <div class="led-orange-inactive" id="rfid"></div>
+        <h5>RFID</h5>
+        </div>
+      <div class="led-box">
+        <div class="led-green-inactive" id="cam"></div>
+        <h5>CAM</h5>
+      </div>
+    </div>
+  </header>
+
+  <!-- Copyright Section -->
+  <section class="copyright py-4 text-center text-white">
+    <div class="container">
+      <small>Copyright &copy; ENSA KENITRA 2020</small>
+    </div>
+  </section>
+
+</body>
+</html>
+
+<script>
+	function loadData() {
+		var xhttp;
+		var url="/data"
+		xhttp=new XMLHttpRequest()
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var myData = xhttp.responseText
+				var parsedData = JSON.parse(myData)
+        console.log(parsedData)
+        document.getElementById("student-data").children[0].style.display = "none"
+        document.getElementById("student-data").children[1].style.display = "none"
+        document.getElementById("profile").style.display = "none"
+        var cam_loading=document.getElementById("cam-loading")
+        if(parsedData.rfid.length != 0){
+          var student_data=document.getElementById("student-data").style.display="grid"
+          var loading_data=document.getElementById("loading-data").style.display="none"
+          var tmp=document.getElementById("uid")
+          tmp.textContent=parsedData.rfid[0]
+          tmp=document.getElementById("status")
+          if(parsedData.rfid[1]=="1"){
+            tmp.textContent="Authorized"
+            cam_loading.innerHTML='<div></div><div></div><div></div>'
+            cam_loading.classList.add("lds-facebook")
+          } else{
+            tmp.textContent="Unauthorized"
+            cam_loading.innerHTML='<div></div><div></div><div></div><img style="width: 80px" src="{{ url_for("static", filename="img/warning.png") }}">'
+          }
+          
+          var orangeLED = document.getElementById("rfid")
+          
+          if(parsedData.rfid[1] == "1"){
+            orangeLED.classList.add("led-orange-active")
+            orangeLED.classList.remove("led-orange-inactive")
+          } else{
+            orangeLED.classList.add("led-orange-inactive")
+            orangeLED.classList.remove("led-orange-active")
+          }
+        }
+        
+        var blueLED = document.getElementById("pir")
+        var greenLED = document.getElementById("cam")
+        if(parsedData.ledpir=="1"){
+          blueLED.classList.add("led-blue-active")
+          blueLED.classList.remove("led-blue-inactive")
+        } 
+        else {
+          blueLED.classList.remove("led-blue-active")
+          blueLED.classList.add("led-blue-inactive")
+        }
+        
+        if(parsedData.cam_data["cam_detected"] == "1"){
+          console.log("cam is cam_detected", parsedData.student_data)
+          cam_loading.classList.remove("lds-facebook")
+          if(parsedData.cam_data["ledcam"] == "1"){
+            document.getElementById("profile").style.backgroundImage="url('static/etudiants/"+parsedData.student_data["id"]+".jpg')"
+            document.getElementById("profile").style.display = "inline"
+            document.getElementById("student-data").children[0].style.display = "inline"
+            document.getElementById("student-data").children[1].style.display = "inline"
+            document.getElementById("nom").textContent = parsedData.student_data["nom"]
+            document.getElementById("prenom").textContent = parsedData.student_data["prenom"]
+            cam_loading.innerHTML='<div></div><div></div><div></div><img style="width: 80px" src="{{ url_for("static", filename="img/verified.png") }}">'
+            greenLED.classList.add("led-green-active")
+            greenLED.classList.remove("led-green-inactive")
+          } 
+          else{
+            cam_loading.innerHTML='<div></div><div></div><div></div><img style="width: 80px" src="{{ url_for("static", filename="img/stop.png") }}">'
+            greenLED.classList.add("led-green-inactive")
+            greenLED.classList.remove("led-green-active")
+          }
+        } 
+        else{
+          greenLED.classList.add("led-green-inactive")
+          greenLED.classList.remove("led-green-active")
+        }
+      }
+		}
+		xhttp.open("GET", url, true)
+		xhttp.send()
+	}
+	
+	window.onload = function() {
+		window.setInterval(function(){
+			loadData()
+		},1000);
+	};
+</script>

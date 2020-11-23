@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<head>
+   <title>Temperature evolution</title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+   <link   rel="shortcut icon" href="{{ url_for('static', filename='img/icone.ico') }}">
+   <style>
+		.container{
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			text-align: center;
+			background-image: url("{{ url_for('static', filename='img/exam.jpg') }}");
+			background-repeat: no-repeat;
+			background-size: cover;
+			height: 640px;
+			font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+		}
+
+		.content{
+			background-color: rgba(0, 0, 0, 0.2);
+			width: 100%;
+		}	
+
+		.data{
+			position: absolute;
+			top: 250px;
+			background-color: #FCFCFC;
+			height: 150px;
+			width: 450px;
+			border: 2px solid gray;
+			border-radius: 10px;
+			padding: 30px;
+			display: flex;
+			flex-wrap: wrap;
+			font-size: 25px;
+			justify-content: center;
+		}
+
+		.data ul{
+			padding: 0;
+			line-height: 2;
+		}
+
+		.list-elmt{
+			display: inline-block;
+			width: 150px;
+		}
+
+		.led-container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			text-align: center;
+			padding: 20px;
+		}
+
+		.led-box {
+			height: 30px;
+			width: 10%;
+			margin: 10px 0;
+			float: left;
+		}
+
+		.led-red-active {
+			margin: 0 auto;
+			width: 24px;
+			height: 24px;
+			background-color: #f00;
+			border-radius: 50%;
+			box-shadow: rgba(0, 0, 0, 0.2) 0 0px 7px 0px, inset #631b1be0 0 -1px 9px, #ff0000 0 1px 15px;
+		}
+
+		.led-red-inactive {
+			margin: 0 auto;
+			width: 24px;
+			height: 24px;
+			background-color: #610000;
+			border-radius: 50%;
+			box-shadow: rgba(0, 0, 0, 0.1) 0 -1px 7px 0px, inset #441313 0 -1px 9px;
+		}
+
+		.led-green-active {
+			margin: 0 auto;
+			width: 24px;
+			height: 24px;
+			background-color: #ABFF00;
+			border-radius: 50%;
+			box-shadow: rgba(0, 0, 0, 0.2) 0 0px 7px 0px, inset #34460f 0 -1px 9px, #6ac500 0 1px 15px;
+		}
+
+		.led-green-inactive {
+			margin: 0 auto;
+			width: 24px;
+			height: 24px;
+			background-color: rgb(67, 100, 0);
+			border-radius: 50%;
+			box-shadow: rgba(0, 0, 0, 0.1) 0 0px 7px 0px, inset #34460f 0 -1px 9px;
+		}
+
+		.led-orange-active {
+			margin: 0 auto;
+			width: 24px;
+			height: 24px;
+			background-color: rgb(255, 225, 56);
+			border-radius: 50%;
+			box-shadow: rgba(0, 0, 0, 0.2) 0 0px 7px 0px, inset rgb(145, 87, 0) 0 -1px 9px, rgb(195, 165, 0) 0 1px 15px;
+		}
+
+		.led-orange-inactive {
+			margin: 0 auto;
+			width: 24px;
+			height: 24px;
+			background-color: rgb(121, 88, 0);
+			border-radius: 50%;
+			box-shadow: rgba(0, 0, 0, 0.1) 0 0px 7px 0px, inset rgb(145, 87, 0) 0 -1px 9px;
+		}
+   </style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="content">
+			<h1 style="text-align: center; color: #FCFCFC; font-size: 75px;margin-top: 100px;">RFID & PIR</h1>
+		</div>
+		<div class="data">
+			<ul style="list-style-type: none; text-align: left; font-weight: 600;">
+				<li><label class="list-elmt">UID :</label> <span id="uid"></span></li> 
+				<li><label class="list-elmt">Status :</label> <span id="status"></span></li>
+			</ul>
+		</div>
+	</div>
+	<div class="led-container">
+		<div class="led-box">
+			<div class="led-red-inactive" id="pir"></div>
+			<h5>PIR</h5>  
+		</div>
+		<div class="led-box">
+			<div class="led-orange-inactive" id="rfid"></div>
+			<h5>RFID</h5>
+	  	</div>
+		<div class="led-box">
+			<div class="led-green-inactive" id="cam"></div>
+			<h5>CAM</h5>
+		</div>
+	</div>
+</body>
+</html>
+<script>
+	function loadData() {
+		var xhttp;
+		var url="/data"
+		xhttp=new XMLHttpRequest()
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var myData = xhttp.responseText
+				var parsedData = JSON.parse(myData)
+				console.log(parsedData)
+				var tmp;
+				tmp=document.getElementById("uid")
+				tmp.textContent=parsedData.rfid[0]
+
+				tmp=document.getElementById("status")
+				if(parsedData.rfid[1]=="1"){
+					tmp.textContent="Authorized"
+				} else{
+					tmp.textContent="Unauthorized"
+				}
+
+				var greenLED = document.getElementById("cam")
+				var orangeLED = document.getElementById("rfid")
+				var redLED = document.getElementById("pir")
+
+				if(parsedData.ledpir=="1"){
+					redLED.classList.add("led-red-active")
+					redLED.classList.remove("led-red-inactive")
+				} else {
+					redLED.classList.remove("led-red-active")
+					redLED.classList.add("led-red-inactive")
+				}
+				if(parsedData.rfid[1] == "1"){
+					orangeLED.classList.add("led-orange-active")
+					orangeLED.classList.remove("led-orange-inactive")
+				} else{
+					orangeLED.classList.add("led-orange-inactive")
+					orangeLED.classList.remove("led-orange-active")
+				}
+				if(parsedData.ledcam == "1"){
+					greenLED.classList.add("led-green-active")
+					greenLED.classList.remove("led-green-inactive")
+				} else{
+					greenLED.classList.add("led-green.inactive")
+					greenLED.classList.remove("led-green-active")
+				}
+			}
+		}
+		xhttp.open("GET", url, true)
+		xhttp.send()
+	}
+	
+	window.onload = function() {
+		window.setInterval(function(){
+			loadData()
+		},100);
+	};
+</script>
